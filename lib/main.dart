@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_app/layers/core/inject/inject.dart';
 
 import 'layers/apresentation/UI/filme_screen.dart';
 
 void main() {
+  Inject.init();
   runApp(MyApp());
 }
 
