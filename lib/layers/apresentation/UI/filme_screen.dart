@@ -10,32 +10,47 @@ import 'package:starwars_app/layers/data/repositories/get_personagem_repository_
 import 'package:starwars_app/layers/domain/usecases/get_filme_usecase/get_filme_usecase_imp.dart';
 import 'package:starwars_app/layers/domain/usecases/get_personagem_usecase/get_personagem_usecase_imp.dart';
 
-class FilmeScreen extends StatelessWidget {
+class FilmeScreen extends StatefulWidget {
   // FilmeController filmeController = FilmeController(GetFilmeUseCaseImp(
   //     GetFilmeRepositoryImp(GetFilmeRemoteDataSourceImp(DioHttpServiceImp()))),
   //    GetPersonagemUseCaseImp(GetPersonagemRepositoryImp(GetPersonagemRemoteDataSourceImp(DioHttpServiceImp()))));
+  @override
+  _FilmeScreenState createState() => _FilmeScreenState();
+}
+
+class _FilmeScreenState extends State<FilmeScreen> {
   FilmeController filmeController = GetIt.I.get<FilmeController>();
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text("aaa")
-
-          ),
-      body: FutureBuilder(
-          future: filmeController.getFilme(),
-          builder: (_, snapshot) {
-            if(!snapshot.hasData) return Text("empty");
-            return Container(
-              height: 200,
-              child: ListView.builder(
-                itemCount: filmeController.filmeEntity.length,
-                itemBuilder: (_, index) {
-                  return Text(filmeController.filmeEntity[index].titulo);
-                },
-              ),
-            );
-          }),
-    );
+    return FutureBuilder(
+        future: filmeController.getFilme(),
+        builder: (_, snapshot) {
+          if (!snapshot.hasData)
+            return Center(child: CircularProgressIndicator());
+          return ListView.builder(
+            itemCount: filmeController.filmeEntity.length,
+            itemBuilder: (_, index) {
+              return InkWell(
+                onTap: () => print("filme"),
+                child: Container(
+                  height: 50,
+                  child: Card(
+                      color: Colors.grey.shade100,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(filmeController.filmeEntity[index].titulo),
+                            Icon(Icons.favorite)
+                          ],
+                        ),
+                      )),
+                ),
+              );
+            },
+          );
+        });
   }
 }

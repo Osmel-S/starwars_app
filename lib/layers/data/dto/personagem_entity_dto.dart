@@ -16,4 +16,9 @@ class PersonagemEntityDto extends PersonagemEntity {
         corDosOlhos: map['eye_color'],
         altura: map['height']);
   }
+
+  @override
+  String toString() {
+    return "Nome: " + nome;
+  }
 }

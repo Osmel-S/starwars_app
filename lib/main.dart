@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_app/layers/apresentation/UI/home_screen.dart';
 import 'package:starwars_app/layers/core/inject/inject.dart';
 
 import 'layers/apresentation/UI/filme_screen.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: FilmeScreen()
+      home: HomeScreen()
     );
   }
 }
