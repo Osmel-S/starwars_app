@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:starwars_app/layers/apresentation/UI/favoritos_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/filme_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/personagem_screen.dart';
 
@@ -57,7 +58,7 @@ class _HomeScreenState extends State<HomeScreen>
     children: [
       FilmeScreen(),
       PersonagemScreen(),
-      FilmeScreen()
+      FavoritosScreen()
     ]
     ));
   }

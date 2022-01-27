@@ -1,5 +1,3 @@
-
-
 import 'package:get_it/get_it.dart';
 import 'package:starwars_app/layers/apresentation/filme_controller.dart';
 import 'package:starwars_app/layers/core/data/services/dio_http_service_imp.dart';
@@ -17,23 +15,26 @@ import 'package:starwars_app/layers/domain/usecases/get_filme_usecase/get_filme_
 import 'package:starwars_app/layers/domain/usecases/get_personagem_usecase/get_personagem_usecase.dart';
 import 'package:starwars_app/layers/domain/usecases/get_personagem_usecase/get_personagem_usecase_imp.dart';
 
-class Inject{
-  static void init (){
+class Inject {
+  static void init() {
     GetIt getIt = GetIt.instance;
-    //lazysingletom -> só é criado quando é chamado
+
     //core
-    getIt.registerLazySingleton<HttpService>(() => DioHttpServiceImp());
+    getIt.registerSingleton<HttpService>(DioHttpServiceImp());
     //datasources
-    getIt.registerLazySingleton<GetFilmeDataSource>(() => GetFilmeRemoteDataSourceImp(getIt()));
-    getIt.registerLazySingleton<GetPersonagemDataSource>(() => GetPersonagemRemoteDataSourceImp(getIt()));
+    getIt.registerSingleton<GetFilmeDataSource>(
+        GetFilmeRemoteDataSourceImp(getIt()));
+    getIt.registerSingleton<GetPersonagemDataSource>(
+        GetPersonagemRemoteDataSourceImp(getIt()));
     //repositories
-    getIt.registerLazySingleton<GetFilmeRepository>(() => GetFilmeRepositoryImp(getIt()));
-    getIt.registerLazySingleton<GetPersonagemRepository>(() => GetPersonagemRepositoryImp(getIt()));
+    getIt.registerSingleton<GetFilmeRepository>(GetFilmeRepositoryImp(getIt()));
+    getIt.registerSingleton<GetPersonagemRepository>(
+        GetPersonagemRepositoryImp(getIt()));
     //usecases
-    getIt.registerLazySingleton<GetFilmeUseCase>(() => GetFilmeUseCaseImp(getIt()));
-    getIt.registerLazySingleton<GetPersonagemUseCase>(() => GetPersonagemUseCaseImp(getIt()));
+    getIt.registerSingleton<GetFilmeUseCase>(GetFilmeUseCaseImp(getIt()));
+    getIt.registerSingleton<GetPersonagemUseCase>(
+        GetPersonagemUseCaseImp(getIt()));
     //controlers
-    //registerFatory -> toda vez que um controller for recuperado será gerado uma instancia nova
-    getIt.registerFactory<FilmeController>(() => FilmeController(getIt(), getIt()));
+    getIt.registerSingleton<FilmeController>(FilmeController(getIt(), getIt()));
   }
 }

@@ -12,7 +12,6 @@ class FilmeEntityDto extends FilmeEntity {
       : super(titulo: titulo, idEpisodio: idEpisodio, dataCriacao: dataCriacao);
 
   static FilmeEntityDto fromMap(Map map) {
-    print('chegou');
     return FilmeEntityDto(
         titulo: map['title'],
         idEpisodio: map['episode_id'],

@@ -31,22 +31,32 @@ class _FilmeScreenState extends State<FilmeScreen> {
           return ListView.builder(
             itemCount: filmeController.filmeEntity.length,
             itemBuilder: (_, index) {
-              return InkWell(
-                onTap: () => print("filme"),
-                child: Container(
-                  height: 50,
-                  child: Card(
-                      color: Colors.grey.shade100,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(filmeController.filmeEntity[index].titulo),
-                            Icon(Icons.favorite)
-                          ],
-                        ),
-                      )),
+              return ListTile(
+                onTap: () {
+                  print("onTap");
+                  setState(() {
+                    if (filmeController.listFavoritos2()[index]) {
+                      filmeController.removerPersonagemFavorito(
+                          filmeController.filmeEntity[index].titulo);
+                      filmeController.listFavoritos2()[index] = false;
+                    } else {
+                      filmeController.adcionarPersonagemFavorito(
+                          filmeController.filmeEntity[index].titulo);
+                      filmeController.listFavoritos2()[index] = true;
+                    }
+                  });
+                  print(filmeController.listFavoritos2());
+                },
+                title: Text(
+                  filmeController.filmeEntity[index].titulo,
+                  style: TextStyle(fontWeight: FontWeight.w700),
+                ),
+                trailing:
+                Icon(
+                  filmeController.listFavoritos2()[index]
+                      ? Icons.favorite
+                      : Icons.favorite_border,
+                  color: Colors.redAccent,
                 ),
               );
             },

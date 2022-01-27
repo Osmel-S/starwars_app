@@ -10,7 +10,6 @@ class PersonagemEntityDto extends PersonagemEntity {
       : super(nome: nome, corDosOlhos: corDosOlhos, altura: altura);
 
   static PersonagemEntityDto fromMap(Map map) {
-    print('chegou');
     return PersonagemEntityDto(
         nome: map['name'],
         corDosOlhos: map['eye_color'],
