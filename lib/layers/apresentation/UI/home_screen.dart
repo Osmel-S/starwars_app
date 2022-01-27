@@ -4,6 +4,7 @@ import 'package:starwars_app/layers/apresentation/UI/avatar_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/favoritos_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/filme_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/personagem_screen.dart';
+import 'package:starwars_app/layers/apresentation/UI/web_view_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -27,50 +28,49 @@ class _HomeScreenState extends State<HomeScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 120,
-        title: Text("STAR WARS"),
-        leading: Builder(builder: (_) => Container(
-          alignment: Alignment.center,
-
-          child: Text("URL"),)),
-        centerTitle: true,
-        actions: [
-          GestureDetector(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => AvatarScreen())),
-            child: CircleAvatar(
-              radius: 30,
-              child: FluttermojiCircleAvatar(
-                backgroundColor: Colors.grey[200],
-                radius: 100,
+        appBar: AppBar(
+            toolbarHeight: 120,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                WebViewScreen(),
+                Text("STAR WARS"),
+                SizedBox(
+                  width: 10,
+                )
+              ],
+            ),
+            // centerTitle: true,
+            actions: [
+              GestureDetector(
+                onTap: () => Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => AvatarScreen())),
+                child: CircleAvatar(
+                  radius: 30,
+                  child: FluttermojiCircleAvatar(
+                    backgroundColor: Colors.grey[200],
+                    radius: 100,
+                  ),
+                ),
               ),
-            ),
-          ),
-          SizedBox(width: 10.0),
-        ],
-        bottom: TabBar(
-          controller: tabController,
-          tabs: [
-            Tab(
-              child: Text("Filmes"),
-            ),
-            Tab(
-              child: Text("Personagens"),
-            ),
-            Tab(
-              child: Text("Favoritos"),
-            )
-          ],
-        )
-      ),
-    body: TabBarView(
-
-    controller: tabController,
-    children: [
-      FilmeScreen(),
-      PersonagemScreen(),
-      FavoritosScreen()
-    ]
-    ));
+              SizedBox(width: 10.0),
+            ],
+            bottom: TabBar(
+              controller: tabController,
+              tabs: [
+                Tab(
+                  child: Text("Filmes"),
+                ),
+                Tab(
+                  child: Text("Personagens"),
+                ),
+                Tab(
+                  child: Text("Favoritos"),
+                )
+              ],
+            )),
+        body: TabBarView(
+            controller: tabController,
+            children: [FilmeScreen(), PersonagemScreen(), FavoritosScreen()]));
   }
 }

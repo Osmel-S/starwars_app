@@ -1,11 +1,22 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:starwars_app/layers/apresentation/UI/home_screen.dart';
+import 'package:starwars_app/layers/core/in_app_web_view/app_browser.dart';
 import 'package:starwars_app/layers/core/inject/inject.dart';
 
 import 'layers/apresentation/UI/filme_screen.dart';
 
-void main() {
+void main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+
+  if (Platform.isAndroid) {
+    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+  }
   Inject.init();
+
   runApp(MyApp());
 }
 
