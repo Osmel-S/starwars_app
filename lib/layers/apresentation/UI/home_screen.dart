@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:starwars_app/layers/apresentation/UI/avatar_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/favoritos_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/filme_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/personagem_screen.dart';
@@ -28,12 +30,21 @@ class _HomeScreenState extends State<HomeScreen>
       appBar: AppBar(
         toolbarHeight: 120,
         title: Text("STAR WARS"),
-        leading: Icon(Icons.add),
+        leading: Builder(builder: (_) => Container(
+          alignment: Alignment.center,
+
+          child: Text("URL"),)),
         centerTitle: true,
         actions: [
-          CircleAvatar(
-            radius: 30,
-            child: Container(),
+          GestureDetector(
+            onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => AvatarScreen())),
+            child: CircleAvatar(
+              radius: 30,
+              child: FluttermojiCircleAvatar(
+                backgroundColor: Colors.grey[200],
+                radius: 100,
+              ),
+            ),
           ),
           SizedBox(width: 10.0),
         ],
