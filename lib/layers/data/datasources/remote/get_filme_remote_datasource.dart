@@ -12,13 +12,14 @@ class GetFilmeRemoteDataSourceImp implements GetFilmeDataSource {
   Future<List<FilmeEntity>> call() async {
     List<FilmeEntity> list = [];
     try {
+      
       var response = await _httpService.get('https://swapi.dev/api/films/');
-
       Iterable lista = response.data['results'];
       list = lista.map((e) => FilmeEntityDto.fromMap(e)).toList();
 
       return list;
     } catch (e) {
+      print(" catch requisição");
       print(e.toString());
       return [];
     }

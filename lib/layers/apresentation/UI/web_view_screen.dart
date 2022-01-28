@@ -5,6 +5,8 @@ import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:starwars_app/layers/core/in_app_web_view/app_browser.dart';
 
 class WebViewScreen extends StatefulWidget {
+
+
   final MyInAppBrowser browser = new MyInAppBrowser();
 
   @override

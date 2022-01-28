@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:starwars_app/layers/apresentation/filme_controller.dart';
 import 'package:starwars_app/layers/core/data/services/dio_http_service_imp.dart';
+import 'package:starwars_app/layers/core/data/services/sqflite_service.dart';
 import 'package:starwars_app/layers/data/datasources/remote/get_filme_remote_datasource.dart';
 import 'package:starwars_app/layers/data/datasources/remote/get_personagem_remote_datasource.dart';
+import 'package:starwars_app/layers/data/dto/favorito_entity_dto.dart';
 import 'package:starwars_app/layers/data/repositories/get_filme_repository_imp.dart';
 import 'package:starwars_app/layers/data/repositories/get_personagem_repository_imp.dart';
 import 'package:starwars_app/layers/domain/usecases/get_filme_usecase/get_filme_usecase_imp.dart';
@@ -22,6 +24,10 @@ class _FilmeScreenState extends State<FilmeScreen> {
   FilmeController filmeController = GetIt.I.get<FilmeController>();
 
   @override
+  void initState() {
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FutureBuilder(
         future: filmeController.getFilme(),
@@ -33,7 +39,7 @@ class _FilmeScreenState extends State<FilmeScreen> {
             itemBuilder: (_, index) {
               return ListTile(
                 onTap: () {
-                  print("onTap");
+
                   setState(() {
                     if (filmeController.listFavoritos2()[index]) {
                       filmeController.removerPersonagemFavorito(
@@ -45,7 +51,6 @@ class _FilmeScreenState extends State<FilmeScreen> {
                       filmeController.listFavoritos2()[index] = true;
                     }
                   });
-                  print(filmeController.listFavoritos2());
                 },
                 title: Text(
                   filmeController.filmeEntity[index].titulo,

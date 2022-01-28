@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:starwars_app/layers/apresentation/filme_controller.dart';
+import 'package:starwars_app/layers/core/data/services/sqflite_service.dart';
 import 'package:starwars_app/layers/domain/entities/personagem_entity.dart';
 
 class PersonagemScreen extends StatefulWidget {
@@ -9,8 +10,10 @@ class PersonagemScreen extends StatefulWidget {
 }
 
 class _PersonagemScreenState extends State<PersonagemScreen> {
+
   FilmeController filmeController = GetIt.I.get<FilmeController>();
   bool? isFavorite;
+  List<String> test2 = [];
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,8 @@ class _PersonagemScreenState extends State<PersonagemScreen> {
                       filmeController.listFavoritos()[index] = true;
                     }
                   });
+                  var list = BancoDadosHelper.instance.recuperarFavoritos();
+                  print(list.then((value) => print(value)));
                 },
                 title: Text(
                   filmeController.personagemEntity[index].nome,
@@ -52,5 +57,10 @@ class _PersonagemScreenState extends State<PersonagemScreen> {
             },
           );
         });
+  }
+
+  @override
+  void initState() {
+
   }
 }

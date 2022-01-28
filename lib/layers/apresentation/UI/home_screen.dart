@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:fluttermoji/fluttermojiCircleAvatar.dart';
+import 'package:get_it/get_it.dart';
 import 'package:starwars_app/layers/apresentation/UI/avatar_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/favoritos_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/filme_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/personagem_screen.dart';
 import 'package:starwars_app/layers/apresentation/UI/web_view_screen.dart';
+import 'package:starwars_app/layers/apresentation/filme_controller.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
+  FilmeController filmeController = GetIt.I.get<FilmeController>();
 
   @override
   void initState() {

@@ -1,3 +1,5 @@
+import 'package:starwars_app/layers/core/data/services/sqflite_service.dart';
+import 'package:starwars_app/layers/data/dto/favorito_entity_dto.dart';
 import 'package:starwars_app/layers/domain/entities/filme_entity.dart';
 import 'package:starwars_app/layers/domain/entities/personagem_entity.dart';
 import 'package:starwars_app/layers/domain/usecases/get_filme_usecase/get_filme_usecases.dart';
@@ -8,7 +10,7 @@ class FilmeController {
   final GetPersonagemUseCase _getPersonagemUseCase;
   List<bool> _favoritos = [];
   List<bool> _favoritos2 = [];
-
+  List<Favorito> listaEntidadeFavorito = [];
   List<FilmeEntity> filmeEntity = [];
   List<PersonagemEntity> personagemEntity = [];
   List<String> _listPersonagensFavoritos = [];
@@ -27,16 +29,28 @@ class FilmeController {
 
   void adcionarPersonagemFavorito(String nome) {
     _listPersonagensFavoritos.add(nome);
+    BancoDadosHelper.instance.adionarString(toMapString(nome));
   }
 
   void removerPersonagemFavorito(String nome) {
     _listPersonagensFavoritos.remove(nome);
+    BancoDadosHelper.instance.remover(nome);
   }
+
+  Map<String, String> toMapString(String nome) {
+    return {'nome': nome};
+  }
+  static String fromMapString(Map<String, dynamic> json) {
+    return  json['nome']!;
+  }
+
+
 
   List<String> filtrandoLista() {
     List<String> filtroListaPersonagem = [];
+    BancoDadosHelper.instance.recuperarFavoritos().then((value) => print('filter: $value'));
 
-    print(personagemEntity);
+
     List<String> baseList = personagemEntity.map((e) => e.nome).toList();
 
     for (var test in baseList) {
@@ -49,12 +63,11 @@ class FilmeController {
     }
     // print(_listPersonagensFavoritos.contains('Luke Skywalker'));
     //print("filtro $filtroList");
+    print(filtroListaPersonagem);
     return filtroListaPersonagem;
   }
 
-  // bool list(int index){
-  //   filtrandoLista()[index]
-  // }
+
 
   List<String> get recuperandoPersonagensFavoritos {
     return _listPersonagensFavoritos;

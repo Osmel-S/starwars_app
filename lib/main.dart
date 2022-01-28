@@ -8,14 +8,13 @@ import 'package:starwars_app/layers/core/inject/inject.dart';
 
 import 'layers/apresentation/UI/filme_screen.dart';
 
-void main() async {
-
+void main() {
+  Inject.init();
   WidgetsFlutterBinding.ensureInitialized();
 
   if (Platform.isAndroid) {
-    await AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
+    AndroidInAppWebViewController.setWebContentsDebuggingEnabled(true);
   }
-  Inject.init();
 
   runApp(MyApp());
 }
@@ -25,12 +24,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: HomeScreen()
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: HomeScreen());
   }
 }
