@@ -1,16 +1,14 @@
-# starwars_app
+# Aplicativo Star Wars
 
-A new Flutter application.
+Desafio 03
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Na aplicação temos as listas de filmes e de personagens do  universo Star Wars. 
+Dados requisitados da API,  sua documentação : swapi.dev/documentation
 
-A few resources to get you started if this is your first Flutter project:
+O usuário pode personalizar seu avatar e os filmes e personagens favoritos são salvos localmente.
+É também possível abrir uma WebView e acessar o site da comunidade Star Wars dentro do aplicativo.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+Para implementação, basta clonar o repositório para uma máquina local.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
