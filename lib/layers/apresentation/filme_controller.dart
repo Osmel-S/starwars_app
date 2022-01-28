@@ -1,5 +1,4 @@
 import 'package:starwars_app/layers/core/data/services/sqflite_service.dart';
-import 'package:starwars_app/layers/data/dto/favorito_entity_dto.dart';
 import 'package:starwars_app/layers/domain/entities/filme_entity.dart';
 import 'package:starwars_app/layers/domain/entities/personagem_entity.dart';
 import 'package:starwars_app/layers/domain/usecases/get_filme_usecase/get_filme_usecases.dart';
@@ -10,10 +9,10 @@ class FilmeController {
   final GetPersonagemUseCase _getPersonagemUseCase;
   List<bool> _favoritos = [];
   List<bool> _favoritos2 = [];
-  List<Favorito> listaEntidadeFavorito = [];
   List<FilmeEntity> filmeEntity = [];
   List<PersonagemEntity> personagemEntity = [];
   List<String> _listPersonagensFavoritos = [];
+  List<String> favoritosTeste = [];
 
   FilmeController(this._getFilmeUseCase, this._getPersonagemUseCase);
 
@@ -27,9 +26,9 @@ class FilmeController {
     return personagemEntity;
   }
 
-  void adcionarPersonagemFavorito(String nome) {
+  void adcionarPersonagemFavorito(String nome, int t) {
     _listPersonagensFavoritos.add(nome);
-    BancoDadosHelper.instance.adionarString(toMapString(nome));
+    BancoDadosHelper.instance.adionarString(toMapString(nome, t));
   }
 
   void removerPersonagemFavorito(String nome) {
@@ -37,41 +36,48 @@ class FilmeController {
     BancoDadosHelper.instance.remover(nome);
   }
 
-  Map<String, String> toMapString(String nome) {
-    return {'nome': nome};
+  Map<String, dynamic> toMapString(String nome, int t) {
+    return {'nome': nome, 'numero': t};
   }
+
   static String fromMapString(Map<String, dynamic> json) {
-    return  json['nome']!;
+    //  print('josn to string' + json.toString());
+    return json['nome']!;
   }
 
-
+  static int fromMapBool(Map<String, dynamic> json) {
+    //  print('josn to string' + json.toString());
+    return json['numero']!;
+  }
 
   List<String> filtrandoLista() {
     List<String> filtroListaPersonagem = [];
-    BancoDadosHelper.instance.recuperarFavoritos().then((value) => print('filter: $value'));
-
+    BancoDadosHelper.instance
+        .recuperarFavoritos()
+        .then((value) => favoritosTeste = value);
 
     List<String> baseList = personagemEntity.map((e) => e.nome).toList();
 
     for (var test in baseList) {
       if (_listPersonagensFavoritos.contains(test)) {
-        print('contem' + test);
         filtroListaPersonagem.add(test);
-        //recuperandoPersonagensFavoritos.remove(test);
-
       }
     }
-    // print(_listPersonagensFavoritos.contains('Luke Skywalker'));
-    //print("filtro $filtroList");
-    print(filtroListaPersonagem);
+
     return filtroListaPersonagem;
   }
-
-
 
   List<String> get recuperandoPersonagensFavoritos {
     return _listPersonagensFavoritos;
   }
+
+  List<String> personagemEntityGet() {
+    return personagemEntity.map((e) => e.nome).toList();
+  }
+  List<String> filmentityGet() {
+    return filmeEntity.map((e) => e.titulo).toList();
+  }
+
 
   List<bool> listFavoritos() {
     if (_favoritos.isEmpty)
@@ -85,4 +91,5 @@ class FilmeController {
       _favoritos2 = List<bool>.generate(filmeEntity.length, (index) => false);
     return _favoritos2;
   }
+
 }
